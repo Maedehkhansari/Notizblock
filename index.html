@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotizBlock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="">
+    <link rel="icon" type="img/x-icon"  href="img/sticky-notes.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body onload="loadDataFromLocalStorage()">
+    <main>
+        <h1>NotizBlock</h1>
+        <div class="form-container">
+            <div>
+                <input id="title" type="text" placeholder="Title">
+                <div class="error d-none" id="title-error">Title is empty</div>
+            </div>
+            <div>
+                <input id="content" type="text" placeholder="Content">
+                <div class="error d-none" id="content-error">Content is empty</div>
+            </div>
+            <div>
+                <button onclick="getInput()">Save note</button>
+            </div>
+
+        </div>
+        <h2>Notes</h2>
+        <div class="notes" id="notes">
+        </div>
+
+        <h2>Archive</h2>
+        <div class="notes" id="archive">
+        </div>
+
+
+        <h2>Trash</h2>
+        <div class="notes" id="trash">
+        </div>
+    </main>
+</body>
+<script src="./script.js"></script>
+
+</html>
