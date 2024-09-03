@@ -10,7 +10,7 @@ function getInput() {
         document.getElementById('title-error').classList.remove('d-none');
         return;
     }
-    
+
     document.getElementById('title-error').classList.add('d-none');
 
     let contentElement = document.getElementById('content');
@@ -31,12 +31,12 @@ function getInput() {
     titleElement.focus();
 }
 
-function loadDataFromLocalStorage(){
+function loadDataFromLocalStorage() {
     let loadArchives = localStorage.getItem("archiveNotes");
 
     archives = JSON.parse(loadArchives);
 
-    if (archives == null){
+    if (archives == null) {
         archives = [];
     }
 
@@ -69,16 +69,7 @@ function render() {
     document.getElementById('notes').innerHTML = '';
 
     for (let i = 0; i < notes.length; i++) {
-        document.getElementById('notes').innerHTML += `<div class="note">
-                <div>
-                    <span>${notes[i].title}</span>
-                    <p>${notes[i].content}</p>
-                </div>
-                <div class="buttons">
-                    <span><img src="img/archive.png" alt="archive" onclick="saveToArchive(${i})"></span>
-                    <span><img src="img/delete.png" alt="delete" class="delete" onclick="saveToTrashFromNotes(${i})"></span>
-                </div>
-            </div>`;
+        document.getElementById('notes').innerHTML += generateNoteTemplate(i);
     }
 
     document.getElementById('archive').innerHTML = '';
@@ -111,7 +102,20 @@ function render() {
     }
 }
 
-function saveToArchive(index){
+function generateNoteTemplate(index) {
+    return `<div class="note">
+                <div>
+                    <span>${notes[index].title}</span>
+                    <p>${notes[index].content}</p>
+                </div>
+                <div class="buttons">
+                    <span><img src="img/archive.png" alt="archive" onclick="saveToArchive(${index})"></span>
+                    <span><img src="img/delete.png" alt="delete" class="delete" onclick="saveToTrashFromNotes(${index})"></span>
+                </div>
+            </div>`;
+}
+
+function saveToArchive(index) {
     let archiveItem = notes[index];
 
     archives.push(archiveItem);
@@ -123,7 +127,7 @@ function saveToArchive(index){
     render();
 }
 
-function saveToTrashFromNotes(index){
+function saveToTrashFromNotes(index) {
     let trashItem = notes[index];
 
     trashes.push(trashItem);
@@ -131,10 +135,10 @@ function saveToTrashFromNotes(index){
     notes.splice(index, 1);
 
     render();
-    
+
 }
 
-function saveToTrashFromArchive(index){
+function saveToTrashFromArchive(index) {
     let trashItem = archives[index];
 
     trashes.push(trashItem);
@@ -144,10 +148,10 @@ function saveToTrashFromArchive(index){
     localStorage.setItem('archiveNotes', JSON.stringify(archives));
 
     render();
-    
+
 }
 
-function deleteFromTrash(index){
+function deleteFromTrash(index) {
     trashes.splice(index, 1);
 
     render();
