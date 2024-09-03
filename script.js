@@ -75,30 +75,13 @@ function render() {
     document.getElementById('archive').innerHTML = '';
 
     for (let i = 0; i < archives.length; i++) {
-        document.getElementById('archive').innerHTML += `<div class="note archive">
-                <div>
-                    <span>${archives[i].title}</span>
-                    <p>${archives[i].content}</p>
-                </div>
-                <div class="buttons">
-                    <span><img src="img/delete.png" alt="delete" class="delete" onclick="saveToTrashFromArchive(${i})"></span>
-                </div>
-            </div>`;
+        document.getElementById('archive').innerHTML += generateArchiveTemplate(i)
     }
 
     document.getElementById('trash').innerHTML = '';
 
     for (let i = 0; i < trashes.length; i++) {
-        document.getElementById('trash').innerHTML += `<div class="note trash">
-                <div>
-                    <span>${trashes[i].title}</span>
-                    <p>${trashes[i].content}</p>
-                </div>
-                <div class="buttons">
-                    <span><img src="img/history.png" alt="history" onclick="restoreFromTrash(${i})"></span>
-                    <span><img src="img/delete.png" alt="delete" class="delete" onclick="deleteFromTrash(${i})"></span>
-                </div>
-            </div>`;
+        document.getElementById('trash').innerHTML += generateTrashTemplate(i)
     }
 }
 
@@ -114,6 +97,33 @@ function generateNoteTemplate(index) {
                 </div>
             </div>`;
 }
+
+function generateArchiveTemplate(index) {
+
+    return `<div class="note archive">
+                <div>
+                    <span>${archives[index].title}</span>
+                    <p>${archives[index].content}</p>
+                </div>
+                <div class="buttons">
+                    <span><img src="img/delete.png" alt="delete" class="delete" onclick="saveToTrashFromArchive(${index})"></span>
+                </div>
+            </div>`;
+}
+
+function generateTrashTemplate(index) {
+  return  `<div class="note trash">
+                <div>
+                    <span>${trashes[index].title}</span>
+                    <p>${trashes[index].content}</p>
+                </div>
+                <div class="buttons">
+                    <span><img src="img/history.png" alt="history" onclick="restoreFromTrash(${index})"></span>
+                    <span><img src="img/delete.png" alt="delete" class="delete" onclick="deleteFromTrash(${index})"></span>
+                </div>
+            </div>`;
+}
+
 
 function saveToArchive(index) {
     let archiveItem = notes[index];
